@@ -202,9 +202,9 @@ function loop(){
         let distance = 0;
     
         while (distance < MAX_DISTANCE) {
-        distance += 0.1;
-        x += dx * 0.1;
-        y += dy * 0.1;
+        distance += 0.001;
+        x += dx * 0.001;
+        y += dy * 0.001;
     
         // Check if the ray has hit a wall
         if (scene[Math.floor(y)][Math.floor(x)] > 0) {
