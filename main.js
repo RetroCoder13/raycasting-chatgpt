@@ -220,24 +220,7 @@ function loop(){
         ctx.fillRect(i * STRIPE_WIDTH, (CANVAS_HEIGHT - wallHeight) / 2, STRIPE_WIDTH, wallHeight);
     }
 
-    if (forward) {
-        // Move forward
-        playerX += Math.cos(playerDir) * MOVE_SPEED;
-        playerY += Math.sin(playerDir) * MOVE_SPEED;
-    }
-    if (backward) {
-        // Move backward
-        playerX -= Math.cos(playerDir) * MOVE_SPEED;
-        playerY -= Math.sin(playerDir) * MOVE_SPEED;
-    }
-    if (left) {
-        // Turn left
-        playerDir -= ROT_SPEED;
-    }
-    if (right) {
-        // Turn right
-        playerDir += ROT_SPEED;
-    }
+    movePlayer()
 
     for (let y = 0; y < scene.length; y++) {
         for (let x = 0; x < scene[y].length; x++) {
@@ -249,6 +232,53 @@ function loop(){
     // Draw the player on the screen
     ctx.fillStyle = "#f00";
     ctx.fillRect(playerX * tileSize - tileSize / 2, playerY * tileSize - tileSize / 2, tileSize, tileSize);
+}
+
+function movePlayer() {
+  // const moveStep = MOVE_SPEED * deltaTime;
+  // const rotStep = ROT_SPEED * deltaTime;
+  const moveStep = MOVE_SPEED;
+  const rotStep = ROT_SPEED;
+
+  if (forward) {
+    // check for forward movement collision
+    const nextX = playerX + Math.cos(playerDir) * moveStep;
+    const nextY = playerY + Math.sin(playerDir) * moveStep;
+    if (isBlocking(nextX, nextY)) {
+      return; // do not move if there's a collision
+    }
+
+    playerX = nextX;
+    playerY = nextY;
+  }
+
+  if (backward) {
+    // check for backward movement collision
+    const nextX = playerX - Math.cos(playerDir) * moveStep;
+    const nextY = playerY - Math.sin(playerDir) * moveStep;
+    if (isBlocking(nextX, nextY)) {
+      return; // do not move if there's a collision
+    }
+
+    playerX = nextX;
+    playerY = nextY;
+  }
+  if (left) {
+    playerDir -= rotStep;
+  }
+  if (right) {
+    playerDir += rotStep;
+  }
+}
+
+function isBlocking(x, y) {
+  // check if the player's next position collides with a wall
+  const mapX = Math.floor(x);
+  const mapY = Math.floor(y);
+  if (scene[mapY][mapX] === 1) {
+    return true;
+  }
+  return false;
 }
 
 setInterval(loop,1000/60)
