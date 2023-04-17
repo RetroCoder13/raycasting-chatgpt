@@ -294,7 +294,7 @@ function isBlocking(x, y) {
   // check if the player's next position collides with a wall
   const mapX = Math.floor(x);
   const mapY = Math.floor(y);
-  if (scene[mapY][mapX] === 1) {
+  if (scene[mapY][mapX] > 0) {
     return true;
   }
   return false;
