@@ -240,6 +240,12 @@ function movePlayer() {
   const moveStep = MOVE_SPEED;
   const rotStep = ROT_SPEED;
 
+  if (left) {
+    playerDir -= rotStep;
+  }
+  if (right) {
+    playerDir += rotStep;
+  }
   if (forward) {
     // check for forward movement collision
     const nextX = playerX + Math.cos(playerDir) * moveStep;
@@ -262,12 +268,6 @@ function movePlayer() {
 
     playerX = nextX;
     playerY = nextY;
-  }
-  if (left) {
-    playerDir -= rotStep;
-  }
-  if (right) {
-    playerDir += rotStep;
   }
 }
 
