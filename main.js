@@ -251,6 +251,12 @@ function loop(){
     // Draw the player on the screen
     ctx.fillStyle = colors['player'];
     ctx.fillRect(playerX * tileSize - tileSize / 2, playerY * tileSize - tileSize / 2, tileSize, tileSize);
+    ctx.fillStyle = "#F00";
+    ctx.fillRect(playerX * tileSize - tileSize/2 / 2 + Math.cos(playerDir)*10, playerY * tileSize - tileSize/2 / 2 + Math.sin(playerDir)*10, tileSize/2, tileSize/2);
+
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(CANVAS_WIDTH/2-2.5, CANVAS_HEIGHT/2-7.5,5,15)
+    ctx.fillRect(CANVAS_WIDTH/2-7.5, CANVAS_HEIGHT/2-2.5,15,5)
 }
 
 function movePlayer() {
